@@ -35,14 +35,14 @@ export default function Home() {
 
       {/* ── RESPONSIVE STYLES ── */}
       <style>{`
-        .home-nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; background: var(--color-ink); position: sticky; top: 0; z-index: 50; }
-        .nav-links { display: flex; gap: 10px; align-items: center; }
-        .nav-btn-outline { color: #E8E2D5; font-weight: 500; font-size: 0.85rem; padding: 7px 14px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); text-decoration: none; white-space: nowrap; }
-        .nav-btn-primary { background: var(--color-primary); color: white; font-weight: 600; font-size: 0.85rem; padding: 7px 14px; border-radius: 6px; text-decoration: none; white-space: nowrap; }
+        .home-nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: var(--color-ink); position: sticky; top: 0; z-index: 50; }
+        .nav-links { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+        .nav-btn-outline { color: #E8E2D5; font-weight: 500; font-size: 0.8rem; padding: 6px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); text-decoration: none; white-space: nowrap; }
+        .nav-btn-primary { background: var(--color-primary); color: white; font-weight: 600; font-size: 0.8rem; padding: 6px 10px; border-radius: 6px; text-decoration: none; white-space: nowrap; }
 
-        .hero { background: var(--color-ink); color: #F6F2E9; padding: 60px 20px 56px; text-align: center; }
-        .hero-title { font-family: var(--font-display); font-size: clamp(1.9rem, 7vw, 3.4rem); font-weight: 700; line-height: 1.15; margin: 0 0 16px; color: #F6F2E9; }
-        .hero-sub { font-size: clamp(0.9rem, 3vw, 1.1rem); color: #B5A98C; line-height: 1.7; margin: 0 auto 36px; max-width: 520px; }
+        .hero { background: var(--color-ink); color: #F6F2E9; padding: 60px 20px 56px; text-align: center; overflow: hidden; }
+        .hero-title { font-family: var(--font-display); font-size: clamp(1.6rem, 6vw, 3.4rem); font-weight: 700; line-height: 1.2; margin: 0 0 16px; color: #F6F2E9; word-break: break-word; }
+        .hero-sub { font-size: clamp(0.85rem, 3vw, 1.1rem); color: #B5A98C; line-height: 1.7; margin: 0 auto 36px; max-width: 520px; word-break: break-word; }
         .hero-btns { display: flex; flex-direction: column; gap: 12px; align-items: center; }
         .hero-btn-main { background: var(--color-primary); color: white; font-weight: 700; font-size: 1rem; padding: 14px 28px; border-radius: 8px; text-decoration: none; width: 100%; max-width: 320px; text-align: center; box-sizing: border-box; }
         .hero-btn-outline { background: transparent; color: #E8E2D5; font-weight: 600; font-size: 1rem; padding: 13px 28px; border-radius: 8px; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); width: 100%; max-width: 320px; text-align: center; box-sizing: border-box; }
@@ -95,8 +95,9 @@ export default function Home() {
           <div style={{
             display: "inline-flex", alignItems: "center", gap: 7,
             background: "rgba(201,166,107,0.15)", border: "1px solid rgba(201,166,107,0.3)",
-            borderRadius: 999, padding: "5px 14px", fontSize: "0.75rem", color: "#C9A66B",
+            borderRadius: 999, padding: "5px 14px", fontSize: "0.72rem", color: "#C9A66B",
             fontWeight: 600, marginBottom: 24, letterSpacing: "0.04em",
+            maxWidth: "100%", boxSizing: "border-box",
           }}>
             <SpiralMark size={13} color="#C9A66B" />
             SNAIL Farm Management Platform
