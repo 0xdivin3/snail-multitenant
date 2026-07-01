@@ -16,26 +16,27 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:4173",
-  process.env.CLIENT_URL,
-].filter(Boolean);
-
-app.use(cors({
+// Must be first — handle CORS before anything else
+const corsOptions = {
   origin: function (origin, callback) {
+    // Allow requests with no origin (Postman, mobile apps)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
+    // Allow localhost in dev
+    if (origin.startsWith("http://localhost")) return callback(null, true);
+    // Allow any vercel.app subdomain
     if (origin.endsWith(".vercel.app")) return callback(null, true);
+    // Allow explicit CLIENT_URL if set
+    if (process.env.CLIENT_URL && origin === process.env.CLIENT_URL) return callback(null, true);
     return callback(new Error("Not allowed by CORS"));
   },
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
-}));
+  optionsSuccessStatus: 200, // Some browsers (IE11) choke on 204
+};
 
-// Handle preflight OPTIONS requests explicitly for all routes
-app.options("*", cors());
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // Respond 200 to all preflight OPTIONS
 
 app.use(express.json());
 
@@ -58,7 +59,7 @@ app.use((req, res) => {
   res.status(404).json({ message: "Route not found." });
 });
 
-// Global error handler (catches anything unhandled)
+// Global error handler
 app.use((err, req, res, next) => {
   console.error("[UNHANDLED ERROR]", err);
   res.status(500).json({ message: "An unexpected error occurred." });
@@ -66,7 +67,6 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 
-// Only listen directly when run locally; Vercel will import the app instead.
 if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`SNAIL API running on http://localhost:${PORT}`);
